@@ -3,15 +3,17 @@ package eu.frlab.diceware
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Repository
 
-@Repository("UUID_Generator")
+@Repository("DictionaryRepository")
 @Scope("singleton")
 class DicewareRepository() {
 
-    private val EFF_LARGE_WORDLIST = "/static/eff_large_wordlist.txt"
+    private val effLargeWordlistResource = "/static/eff_large_wordlist.txt"
+    private val effShortWordlistResource = "/static/eff_short_wordlist_1.txt"
 
-    private val dictionary = loadWordList(EFF_LARGE_WORDLIST)
+    private val largeWordList = loadWordList(effLargeWordlistResource)
+    private val shortWordList = loadWordList(effShortWordlistResource)
 
-    fun getWord(code: Int) = dictionary.getValue(code)
+    fun getWord(code: Int) = if (code > 6666) largeWordList.getValue(code) else shortWordList.getValue(code)
 
     companion object {
 
