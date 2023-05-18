@@ -3,23 +3,32 @@ package eu.frlab.diceware
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class WordlistLoadTest {
+class WordlistsTest {
 
-    private val EFF_LARGE_WORDLIST = "/static/eff_large_wordlist.txt"
+    private val repository = DicewareRepository()
 
     @Test
-    fun loadFile() {
-        val fileContent = WordlistLoadTest::class.java.getResource(EFF_LARGE_WORDLIST)?.readText()
-        assertThat(fileContent).isNotNull()
-        assertThat(fileContent).isNotEmpty()
+    fun largeWordListsExist() {
+        assertThat(repository.largeWordList).isNotNull()
+        assertThat(repository.largeWordList).isNotEmpty()
     }
 
     @Test
-    fun parseFile() {
-        val dictionary = DicewareRepository.loadWordList(EFF_LARGE_WORDLIST)
+    fun shortWordListsExist() {
+        assertThat(repository.shortWordList).isNotNull()
+        assertThat(repository.shortWordList).isNotEmpty()
+    }
 
-        assertThat(dictionary.keys.size).isEqualTo(7776)
-        assertThat(dictionary.getValue(23615)).isEqualTo("document")
+    @Test
+    fun largeWordListIsParsable() {
+        assertThat(repository.largeWordList.keys.size).isEqualTo(7776)
+        assertThat(repository.largeWordList.getValue(23615)).isEqualTo("document")
+    }
+
+    @Test
+    fun shortWordListIsParsable() {
+        assertThat(repository.shortWordList.keys.size).isEqualTo(1296)
+        assertThat(repository.shortWordList.getValue(5432)).isEqualTo("skid")
     }
 
 }

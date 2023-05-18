@@ -10,8 +10,8 @@ class DicewareRepository() {
     private val effLargeWordlistResource = "/static/eff_large_wordlist.txt"
     private val effShortWordlistResource = "/static/eff_short_wordlist_1.txt"
 
-    private val largeWordList = loadWordList(effLargeWordlistResource)
-    private val shortWordList = loadWordList(effShortWordlistResource)
+    val largeWordList = loadWordList(effLargeWordlistResource)
+    val shortWordList = loadWordList(effShortWordlistResource)
 
     fun getWord(code: Int) = if (code > 6666) largeWordList.getValue(code) else shortWordList.getValue(code)
 
