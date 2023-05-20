@@ -4,9 +4,16 @@
 
     gradle bootRun
 
-    curl http://localhost:8080/api/hello
+    http://localhost:8080/actuator/health
+
+#### After converting to multi-module
+
+    ./gradlew :web:bootRun
 
 ## Gradle
+
+* `./gradlew -q projects`: All gradle projects
+* Project Layout: https://docs.gradle.org/current/userguide/fine_tuning_project_layout.html
 
 ### Gradle components in single project
 
