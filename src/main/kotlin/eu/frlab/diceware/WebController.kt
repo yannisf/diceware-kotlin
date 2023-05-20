@@ -21,21 +21,18 @@ class WebController(
     fun rollForPassword(
         @RequestParam(value = "word_num",  required = false, defaultValue = "5")
         numberOfWords: Int,
-
         @RequestParam(value="concat", required = false, defaultValue = "simple")
         concatMode: ConcatMode,
-    ) = service.rollForPassword(numberOfCodes = numberOfWords, concatMode = concatMode).password
+    ) = service.rollForPassword(numberOfCodeSequences = numberOfWords, concatMode = concatMode).password
 
     @GetMapping(path = ["/roll"], produces = ["application/json"] )
     fun rollForWords(
         @RequestParam(value = "word_num",  required = false, defaultValue = "5")
         numberOfWords: Int,
-
         @RequestParam(value = "short",  required = false, defaultValue = "false")
         useShortList: Boolean,
-
         @RequestParam(value="concat", required = false, defaultValue = "simple")
         concatMode: ConcatMode,
-    ) = service.rollForPassword(numberOfCodes = numberOfWords, codeLength = if (useShortList) 4 else 5, concatMode = concatMode)
+    ) = service.rollForPassword(numberOfCodeSequences = numberOfWords, sequenceCodeLength = if (useShortList) 4 else 5, concatMode = concatMode)
 
 }
