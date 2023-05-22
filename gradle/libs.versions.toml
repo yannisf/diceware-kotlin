@@ -1,0 +1,11 @@
+[versions]
+spring-boot = "3.1.0"
+kotlin-gradle-plugin = "1.8.21"
+mockito-kotlin = "4.1.0"
+
+[libraries]
+springBootGradlePlugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
+mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin"}
+springBootStarterWeb = { module = "org.springframework.boot:spring-boot-starter-web"}
+springBootStarterActuator = { module = "org.springframework.boot:spring-boot-starter-actuator"}

@@ -8,7 +8,10 @@ repositories {
     gradlePluginPortal()
 }
 
-//???Dependencies here, are plugins for the underlying projects???
+//Dependencies here, are plugins for the underlying projects???
 dependencies {
-//    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21")
+    implementation(libs.kotlinGradlePlugin) //org.jetbrains.kotlin.jvm
+    implementation("io.spring.gradle:dependency-management-plugin:1.1.0") //io.spring.dependency-management
+    implementation(libs.springBootGradlePlugin) //org.springframework.boot
+    implementation("org.jetbrains.kotlin:kotlin-allopen:1.8.21") //org.jetbrains.kotlin.plugin.spring
 }

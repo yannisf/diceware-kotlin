@@ -14,6 +14,9 @@
 
 * `./gradlew -q projects`: All gradle projects
 * Project Layout: https://docs.gradle.org/current/userguide/fine_tuning_project_layout.html
+* alias? apply? includeBuild
+* ./gradlew tasks --all
+
 
 ### Gradle components in single project
 
