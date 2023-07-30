@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diceware-deployment
+  labels:
+    app: diceware
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: diceware
+  template:
+    metadata:
+      labels:
+        app: diceware
+    spec:
+      containers:
+        - name: diceware
+          image: yannisf/diceware
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+#            - name: CONCAT_MODE
+#              value: "space"
+            - name: CONCAT_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: diceware-configmap
+                  key: concat_mode
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: diceware-configmap
+            items:
+              - key: "log4j.xml"
+                path: "log4j.xml"
+
+

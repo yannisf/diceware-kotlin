@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: diceware-configmap
+  labels:
+    app: diceware
+data:
+  # property-like keys; each key maps to a simple value
+  concat_mode: "kebab"
+  # file-like keys
+  log4j.xml: |
+    this is like a file

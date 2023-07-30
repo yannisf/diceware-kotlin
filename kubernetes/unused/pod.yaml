@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: diceware
+spec:
+  containers:
+    - name: diceware
+      image: yannisf/diceware
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8080

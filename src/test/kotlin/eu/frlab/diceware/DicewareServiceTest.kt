@@ -6,20 +6,19 @@ import org.assertj.core.api.Assertions.*
 import org.mockito.kotlin.mock
 
 
-class RollServiceTest {
+class DicewareServiceTest {
 
     //TODO: This is more of a stub test
     @Test
-    fun rollTest(): Unit {
+    fun rollTest() {
         val secureRandom = SecureRandom()
         val roll = (0 until 5).joinToString (transform = { _ ->  (secureRandom.nextInt(6) + 1).toString()}, separator = "")
-
     }
 
     @Test
     fun concatWordsTest() {
         val repositoryMock: DicewareRepository = mock()
-        val service = RollServiceImpl(repositoryMock)
+        val service = DicewareServiceImpl(repositoryMock, AppProperties())
         val words = listOf("to", "kill", "a", "mockingbird")
 
         val space = service.concatWords(ConcatMode.space, words)

@@ -16,3 +16,16 @@
 - `build.gradle`: build configuration file
 - `settings.gradle`: Executed before any `build.gradle`. It is also a script like `build.gradle`. Define all included submodules.
 - `gradle.properties`: Options for running gradle itself
+
+## cdk8s
+
+After generating the charts apply them.
+
+
+### Checklist
+
+* Kube deployment
+* cdk8s
+* kube secrets
+* log in config map
+* 
