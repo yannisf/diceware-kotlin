@@ -52,13 +52,13 @@ class DicewareServiceImpl(
         numberOfCodeSequences: Int,
         sequenceCodeLength: Int,
         concatMode: ConcatMode
-    ): DiceWareResult {
+    ): DicewareResult {
         log.info("Rolling...")
         val codeWordMap = rollForWords(numberOfCodeSequences, sequenceCodeLength)
         val words = codeWordMap.map { it.value }
         val password = concatWords(concatMode, words)
 
-        return DiceWareResult(codeWordMap.map { CodeWordPair(it.key, it.value) }, password)
+        return DicewareResult(codeWordMap.map { CodeWordPair(it.key, it.value) }, password)
     }
 
     fun concatWords(concatMode: ConcatMode, words: List<String>): String = when (concatMode) {

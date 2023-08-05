@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
+    id("org.jetbrains.kotlinx.kover") version "0.7.3"
     id("org.springframework.boot") version "3.0.7"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.7.22"
@@ -17,6 +18,12 @@ java {
 
 repositories {
     mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
 }
 
 dependencies {
@@ -42,6 +49,12 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
         jvmTarget = "17"
+    }
+}
+
+tasks.withType<Test> {
+    testLogging {
+        events ("passed", "skipped", "failed")
     }
 }
 
