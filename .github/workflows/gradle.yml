@@ -28,12 +28,24 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: |
             build
             koverHtmlReport
+            koverXmlReport
             --info
+
+      - name: Extract and print coverage
+        run: |
+          sudo apt-get update && sudo apt-get install libxml2-utils
+          covered=$(xmllint --xpath 'string(/report/counter[@type="LINE"]/@covered)' build/reports/kover/report.xml)
+          missed=$(xmllint --xpath 'string(/report/counter[@type="LINE"]/@missed)' build/reports/kover/report.xml)
+          total=$(awk "BEGIN { print 100.0*$covered/($covered+$missed) }")
+          echo "Total line coverage: $total%"
+          echo "covered=$covered" >> $GITHUB_OUTPUT
+          echo "missed=$missed" >> $GITHUB_OUTPUT
+          echo "coverage_pct=$total" >> $GITHUB_OUTPUT
 
       - name: Upload build reports
         uses: actions/upload-artifact@v3
