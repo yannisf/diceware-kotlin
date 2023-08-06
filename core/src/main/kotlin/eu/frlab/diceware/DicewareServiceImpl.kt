@@ -7,10 +7,7 @@ import java.security.SecureRandom
 
 @Service("RollService")
 @Scope("singleton")
-class DicewareServiceImpl(
-    private val repository: DicewareRepository,
-    appProperties: AppProperties,
-) : DicewareService {
+class DicewareServiceImpl(private val repository: DicewareRepository) : DicewareService {
 
     private val log = LoggerFactory.getLogger(javaClass)
 

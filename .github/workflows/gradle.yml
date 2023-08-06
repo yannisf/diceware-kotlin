@@ -32,15 +32,14 @@ jobs:
         with:
           arguments: |
             build
-            koverHtmlReport
-            koverXmlReport
+            kover
             --info
 
       - name: Extract and print coverage
         run: |
           sudo apt-get update && sudo apt-get install libxml2-utils
-          covered=$(xmllint --xpath 'string(/report/counter[@type="LINE"]/@covered)' build/reports/kover/report.xml)
-          missed=$(xmllint --xpath 'string(/report/counter[@type="LINE"]/@missed)' build/reports/kover/report.xml)
+          covered=$(xmllint --xpath 'string(/report/counter[@type="LINE"]/@covered)' web/build/reports/kover/report.xml)
+          missed=$(xmllint --xpath 'string(/report/counter[@type="LINE"]/@missed)' web/build/reports/kover/report.xml)
           total=$(awk "BEGIN { print 100.0*$covered/($covered+$missed) }")
           echo "Total line coverage: $total%"
           echo "covered=$covered" >> $GITHUB_OUTPUT
@@ -57,4 +56,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-reports
-          path: build/reports/
+          path: |
+            core/build/reports/
+            web/build/reports/

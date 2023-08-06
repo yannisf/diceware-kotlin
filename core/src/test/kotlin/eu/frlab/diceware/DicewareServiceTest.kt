@@ -13,12 +13,13 @@ class DicewareServiceTest {
     fun rollTest() {
         val secureRandom = SecureRandom()
         val roll = (0 until 5).joinToString (transform = { _ ->  (secureRandom.nextInt(6) + 1).toString()}, separator = "")
+        println(roll)
     }
 
     @Test
     fun concatWordsTest() {
         val repositoryMock: DicewareRepository = mock()
-        val service = DicewareServiceImpl(repositoryMock, AppProperties())
+        val service = DicewareServiceImpl(repositoryMock)
         val words = listOf("to", "kill", "a", "mockingbird")
 
         val space = service.concatWords(ConcatMode.space, words)

@@ -1,63 +1,44 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.jetbrains.kotlinx.kover") version "0.7.3"
-    id("org.springframework.boot") version "3.0.7"
-    id("io.spring.dependency-management") version "1.1.0"
+    id("org.gradle.java")
     kotlin("jvm") version "1.7.22"
-    kotlin("plugin.spring") version "1.7.22"
+    id("org.jetbrains.kotlinx.kover") version "0.7.3" apply false
+    id("org.springframework.boot") version "3.0.7" apply false
+    id("io.spring.dependency-management") version "1.1.0" apply false
+    kotlin("plugin.spring") version "1.7.22" apply false
 }
 
-group = "eu.frlab"
-version = "0.0.1-SNAPSHOT"
+subprojects {
+    group = "eu.frlab"
+    version = "0.0.1-SNAPSHOT"
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
-repositories {
-    mavenCentral()
-}
-
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
+    apply {
+        plugin("java")
+        plugin("org.jetbrains.kotlin.jvm")
+        plugin("org.jetbrains.kotlinx.kover")
     }
-}
 
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-aop")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-
-    annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-}
-
-tasks.named<BootJar>("bootJar") {
-    archiveFileName.set("app.jar")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "17"
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
     }
-}
 
-tasks.withType<Test> {
-    testLogging {
-        events ("passed", "skipped", "failed")
+    repositories {
+        mavenCentral()
     }
-}
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += "-Xjsr305=strict"
+            jvmTarget = "17"
+        }
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+        testLogging {
+            events ("passed", "skipped", "failed")
+        }
+    }
+
 }
