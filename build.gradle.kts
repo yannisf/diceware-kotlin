@@ -2,11 +2,19 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.gradle.java")
-    kotlin("jvm") version "1.7.22"
     id("org.jetbrains.kotlinx.kover") version "0.7.3" apply false
-    id("org.springframework.boot") version "3.0.7" apply false
-    id("io.spring.dependency-management") version "1.1.0" apply false
-    kotlin("plugin.spring") version "1.7.22" apply false
+    id("org.springframework.boot") version "3.1.2" apply false
+    id("io.spring.dependency-management") version "1.1.2" apply false
+    kotlin("jvm") version "1.8.22"
+    kotlin("plugin.spring") version "1.8.22" apply false
+}
+
+allprojects {
+
+    repositories {
+        mavenCentral()
+    }
+
 }
 
 subprojects {
@@ -21,10 +29,6 @@ subprojects {
 
     java {
         sourceCompatibility = JavaVersion.VERSION_17
-    }
-
-    repositories {
-        mavenCentral()
     }
 
     tasks.withType<KotlinCompile> {
