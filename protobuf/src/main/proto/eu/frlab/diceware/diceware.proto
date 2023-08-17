@@ -1,0 +1,31 @@
+syntax = "proto3";
+package eu.frlab.diceware.proto;
+
+service Diceware {
+  rpc roll (DicewareRequest) returns (DicewareResponse);
+}
+
+message DicewareRequest {
+  bool shortCodes = 1;
+  int32 numberOfWords = 2;
+  ConcatMode concatMode = 3;
+
+  enum ConcatMode {
+      SIMPLE = 0;
+      SPACE = 1;
+      CAMEL = 2;
+      PASCAL = 3;
+      SNAKE = 4;
+      KEBAB = 5;
+  }
+}
+
+message DicewareResponse {
+  string password = 1;
+  repeated CodeWordPair codeWordPairs = 2;
+
+  message CodeWordPair {
+    int32 code = 1;
+    string word = 2;
+  }
+}

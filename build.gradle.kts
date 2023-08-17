@@ -9,15 +9,11 @@ plugins {
     kotlin("plugin.spring") version "1.8.22" apply false
 }
 
-allprojects {
-
-    repositories {
-        mavenCentral()
-    }
-
-}
 
 subprojects {
+}
+
+allprojects {
     group = "eu.frlab"
     version = "0.0.1-SNAPSHOT"
 
@@ -25,6 +21,10 @@ subprojects {
         plugin("java")
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.jetbrains.kotlinx.kover")
+    }
+
+    repositories {
+        mavenCentral()
     }
 
     java {
