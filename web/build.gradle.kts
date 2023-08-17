@@ -8,11 +8,10 @@ plugins {
 
 dependencies {
 
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-//    implementation("io.grpc:grpc-kotlin-stub:1.3.0")
-//    implementation("io.grpc:grpc-services:1.57.2")
-//    implementation("com.google.protobuf:protobuf-kotlin:3.24.0")
-    runtimeOnly("io.grpc:grpc-netty:1.57.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("io.grpc:grpc-kotlin-stub:1.3.0")
+    implementation("com.google.protobuf:protobuf-kotlin:3.24.0")
+    implementation ("io.github.lognet:grpc-spring-boot-starter:5.1.4")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-web")
