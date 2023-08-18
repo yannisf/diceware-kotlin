@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource
 
 @SpringBootApplication
 @EnableConfigurationProperties(AppProperties::class)
-@PropertySource(value = ["application.properties","core.properties"])
+@PropertySource(value = ["classpath:/application.properties","classpath:/core.properties"])
 class DicewareApplication(
     @Autowired appProperties: AppProperties
 ) {
