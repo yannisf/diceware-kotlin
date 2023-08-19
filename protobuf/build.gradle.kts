@@ -12,6 +12,7 @@ dependencies {
     runtimeOnly("io.grpc:grpc-netty:1.57.2")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
 }
 
