@@ -11,12 +11,16 @@ import org.lognet.springboot.grpc.GRpcService
 class ProtoService(
     private val service: DicewareService
 ) : DicewareGrpcKt.DicewareCoroutineImplBase() {
+
+    fun DicewareRequest.ConcatMode.toModel(): ConcatMode =
+        ConcatMode.valueOf(this.name.lowercase())
+
     override suspend fun roll(request: DicewareRequest): DicewareResponse {
-        val useShortCodes = request.shortCodes
-        val concatMode = request.concatMode
+        val shortCodes = request.shortCodes
+        val concatMode = request.concatMode.toModel()
         val numberOfWords = request.numberOfWords
 
-        val result = service.rollForPassword(numberOfWords, if (useShortCodes) 4 else 5, ConcatMode.space)
+        val result = service.rollForPassword(numberOfWords, shortCodes, concatMode)
 
         val protoCodeWordPairs = result.rollData.map {
             codeWordPair {
@@ -26,10 +30,8 @@ class ProtoService(
         }
 
         return dicewareResponse {
-            protoCodeWordPairs.forEach{
-                codeWordPairs += it
-            }
             password = result.password
+            codeWordPairs.addAll(protoCodeWordPairs)
         }
 
     }

@@ -27,31 +27,33 @@ class DicewareServiceImpl(private val repository: DicewareRepository) : Diceware
         (0 until times).joinToString(transform = { singleRoll() }, separator = "").toInt()
 
     /**
-     * Rolls a die [numberOfCodeSequences]*[sequenceCodeLength], effectively producing [numberOfCodeSequences] code sequences,
-     * with each sequence having [sequenceCodeLength] codes, from 1 to 6.
+     * Rolls a die [numberOfCodeSequences]*[shortCodes], effectively producing [numberOfCodeSequences] code sequences,
+     * with each sequence having [shortCodes] codes, from 1 to 6.
      *
      * @param numberOfCodeSequences effectively, the number of requested words
-     * @param sequenceCodeLength the number of codes, typically 5 for the long list, 4 for the short list
+     * @param shortCodes the number of codes, typically 5 for the long list, 4 for the short list
      */
-    fun consecutiveRepeatedRolls(numberOfCodeSequences: Int, sequenceCodeLength: Int = 5) =
-        (0 until numberOfCodeSequences).map { repeatedRolls(sequenceCodeLength) }
+    fun consecutiveRepeatedRolls(numberOfCodeSequences: Int, shortCodes: Boolean = false): List<Int> {
+        val times = if (shortCodes) 4 else 5
+        return (0 until numberOfCodeSequences).map { repeatedRolls(times) }
+    }
 
     /**
-     * Dereferences the requested [numberOfCodeSequences] of [sequenceCodeLength] length, to a dictionary of words.
+     * Dereferences the requested [numberOfCodeSequences] of [shortCodes] length, to a dictionary of words.
      */
-    fun rollForWords(numberOfCodeSequences: Int, sequenceCodeLength: Int = 5): Map<Int, String> =
-        consecutiveRepeatedRolls(numberOfCodeSequences, sequenceCodeLength).associateWith { repository.getWord(it) }
+    fun rollForWords(numberOfCodeSequences: Int, shortCodes: Boolean): Map<Int, String> =
+        consecutiveRepeatedRolls(numberOfCodeSequences, shortCodes).associateWith { repository.getWord(it) }
 
     /**
      * Produces the final password, given all the requested generation parameters.
      */
     override fun rollForPassword(
-        numberOfCodeSequences: Int,
-        sequenceCodeLength: Int,
+        numberOfWords: Int,
+        shortCodes: Boolean,
         concatMode: ConcatMode
     ): DicewareResult {
         log.info("Rolling...")
-        val codeWordMap = rollForWords(numberOfCodeSequences, sequenceCodeLength)
+        val codeWordMap = rollForWords(numberOfWords, shortCodes)
         val words = codeWordMap.map { it.value }
         val password = concatWords(concatMode, words)
 

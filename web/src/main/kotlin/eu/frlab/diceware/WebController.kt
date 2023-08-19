@@ -27,10 +27,7 @@ class WebController(
         useShortList: Boolean,
         @RequestParam(value="concat", required = false, defaultValue = "\${app.default_concat_mode}")
         concatMode: ConcatMode,
-    ) = service.rollForPassword(
-        numberOfCodeSequences = numberOfWords,
-        sequenceCodeLength = if (useShortList) 4 else 5,
-        concatMode = concatMode).password
+    ) = service.rollForPassword(numberOfWords, useShortList, concatMode).password
 
     @GetMapping(path = ["/roll"], produces = ["application/json"] )
     fun rollForWords(
@@ -40,10 +37,6 @@ class WebController(
         useShortList: Boolean,
         @RequestParam(value="concat", required = false, defaultValue = "\${app.default_concat_mode}")
         concatMode: ConcatMode,
-    ) = service.rollForPassword(
-        numberOfCodeSequences = numberOfWords,
-        sequenceCodeLength = if (useShortList) 4 else 5,
-        concatMode = concatMode
-    )
+    ) = service.rollForPassword(numberOfWords, useShortList, concatMode)
 
 }
