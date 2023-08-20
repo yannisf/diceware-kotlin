@@ -1,0 +1,7 @@
+baseURL = 'https://diceware.frlab.eu/'
+languageCode = 'en-us'
+title = 'Diceware'
+theme = "terrassa"
+
+[params.hero]
+textColor = "gray" # Empty for default color
