@@ -1,4 +1,4 @@
-baseURL = 'http://notes.frlab.eu/diceware-kotlin/'
+baseURL = 'https://yannisf.github.io/diceware-kotlin/'
 languageCode = 'en-us'
 title = 'Diceware'
 theme = "terrassa"
