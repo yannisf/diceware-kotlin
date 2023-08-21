@@ -1,13 +1,20 @@
 package eu.frlab.diceware
 
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Service
+import java.security.MessageDigest
 import java.security.SecureRandom
+import java.util.*
 
 @Service("RollService")
 @Scope("singleton")
-class DicewareServiceImpl(private val repository: DicewareRepository) : DicewareService {
+class DicewareServiceImpl(
+    private val repository: DicewareRepository,
+    @Value("\${app.chechsum_algos}")
+    private val algos: List<String>,
+) : DicewareService {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
@@ -75,4 +82,19 @@ class DicewareServiceImpl(private val repository: DicewareRepository) : Diceware
         return repository.getWord(code)
     }
 
+    override fun produceChecksums(): Map<String, Checksums> {
+        val shortListByteArray = repository.getShortWordListByteArray()
+        val largeListByteArray = repository.getLargeWordListByteArray()
+
+        return algos.fold(emptyMap()) { acc, next ->
+            val digest: MessageDigest = MessageDigest.getInstance(next)
+            val checksums = Checksums(
+                HexFormat.of().formatHex(digest.digest(shortListByteArray)),
+                HexFormat.of().formatHex(digest.digest(largeListByteArray)),
+            )
+            acc + (next to checksums)
+        }
+    }
+
 }
+

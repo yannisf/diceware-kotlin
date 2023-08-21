@@ -9,4 +9,7 @@ interface DicewareService {
 
     fun getWord(code: Int): String
 
+    fun produceChecksums(): Map<String, Checksums>
 }
+
+data class Checksums(val short: String, val large: String)

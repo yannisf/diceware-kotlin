@@ -5,7 +5,12 @@ import org.junit.jupiter.api.Test
 
 class WordlistsTest {
 
-    private val repository = DicewareRepository()
+    private val appProperties = AppProperties(
+        largeWordList = "/static/eff_large_wordlist.txt",
+        shortWordList = "/static/eff_short_wordlist_1.txt"
+    )
+
+    private val repository = DicewareRepository(appProperties)
 
     @Test
     fun largeWordListsExist() {

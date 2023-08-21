@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("plugin.spring")
+    id ("com.gorylenko.gradle-git-properties") version "2.4.1"
 }
 
 dependencies {

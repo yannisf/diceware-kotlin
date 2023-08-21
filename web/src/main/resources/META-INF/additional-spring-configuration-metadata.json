@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "app.chechsum.algos",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Use these algorithm to create checksums for the diceware word lists."
+  }
+] }

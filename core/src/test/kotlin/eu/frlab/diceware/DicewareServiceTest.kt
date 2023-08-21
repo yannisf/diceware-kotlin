@@ -18,8 +18,9 @@ class DicewareServiceTest {
 
     @Test
     fun concatWordsTest() {
-        val repositoryMock: DicewareRepository = mock()
-        val service = DicewareServiceImpl(repositoryMock)
+
+        val repositoryMock: DicewareRepository =  mock()
+        val service = DicewareServiceImpl(repositoryMock, emptyList())
         val words = listOf("to", "kill", "a", "mockingbird")
 
         val space = service.concatWords(ConcatMode.space, words)

@@ -18,11 +18,15 @@ data class AppProperties(
     val defaultUseShortList: Boolean = false,
     @get:[Min(4) Max(20)]
     val defaultNumWords: Int = 5,
+    val largeWordList: String,
+    val shortWordList: String,
 ) {
 
     fun prettyPrint(): String = """
         
         === Application Properties ===
+        large_word_list = $largeWordList
+        short_word_list = $shortWordList
         default_concat_mode = $defaultConcatMode 
         default_use_short_list = $defaultUseShortList
         default_num_words = $defaultNumWords
