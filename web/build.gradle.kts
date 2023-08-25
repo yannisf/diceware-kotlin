@@ -7,6 +7,10 @@ plugins {
     id ("com.gorylenko.gradle-git-properties") version "2.4.1"
 }
 
+springBoot {
+    buildInfo()
+}
+
 dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
